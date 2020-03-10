@@ -11,8 +11,7 @@ import './style.less'
 // import { createImageFileFromBase64 } from '../../helper/CesiumUtils'
 // import Webcam from 'react-webcam'
 import { Viewer, SkyAtmosphere, SkyBox } from 'resium'
-import {
-} from 'cesium'
+import {} from 'cesium'
 
 const DemoPage = props => {
   const { commonStore, demoStore, gpsStore } = props
