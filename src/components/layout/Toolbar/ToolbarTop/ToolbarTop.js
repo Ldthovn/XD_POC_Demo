@@ -17,38 +17,6 @@ const { Panel } = Collapse
 const ToolbarTop = props => {
   const { currentPage, history, commonStore, demoStore } = props
 
-  const test = () => {
-    var camData = {
-      duration: 1,
-      position: {
-        x: -1619694.0038207266,
-        y: 5731515.516635127,
-        z: 2274488.5607231595,
-      },
-      direction: {
-        x: -0.8706899180487627,
-        y: -0.47299585100996294,
-        z: -0.13481094738781416,
-      },
-      up: {
-        x: -0.48937167137838883,
-        y: 0.8057702664166693,
-        z: 0.3335410694519222,
-      },
-    }
-    demoStore.setCameraData(camData)
-  }
-
-  const viewSwitch = () => {
-    if (demoStore.cameraViewType === '3D') {
-      demoStore.cameraViewType = '2D'
-    } else if (demoStore.cameraViewType === '2D') {
-      demoStore.cameraViewType = '2.5D'
-    } else if (demoStore.cameraViewType === '2.5D') {
-      demoStore.cameraViewType = '3D'
-    }
-  }
-
   const clickShowMainDrawer = () => {
     commonStore.setShowMainDrawer(true)
   }
@@ -78,29 +46,7 @@ const ToolbarTop = props => {
       case 'home':
         return <>{defaultButton}</>
       case 'demo':
-        return (
-          <Fragment>
-            {defaultButton}
-            <ToolbarTopItem>
-              <Tooltip title={'Test Move Camera'}>
-                <Button
-                  onClick={test}
-                  icon={<ExperimentOutlined />}
-                  size={commonStore.buttonSize}
-                />
-              </Tooltip>
-            </ToolbarTopItem>
-            <ToolbarTopItem>
-              <Tooltip title={'2D/3D View Switch'}>
-                <Button
-                  onClick={viewSwitch}
-                  icon={<SwitcherOutlined />}
-                  size={commonStore.buttonSize}
-                />
-              </Tooltip>
-            </ToolbarTopItem>
-          </Fragment>
-        )
+        return <Fragment>{defaultButton}</Fragment>
       default:
         break
     }
