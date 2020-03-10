@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "openbimtool"
+  },
+  "targets": {
+    "openbimtool": {
+      "hosting": {
+        "xd-visual-doc": [
+          "xd-visual-doc"
+        ]
+      }
+    }
+  }
+}
