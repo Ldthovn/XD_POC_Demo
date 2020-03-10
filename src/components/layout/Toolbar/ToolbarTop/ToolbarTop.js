@@ -1,22 +1,52 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Tooltip, Button, Collapse } from 'antd'
+import { Tooltip, Button } from 'antd'
 import { withRouter } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { ToolbarTopContainer, ToolbarTopItem } from './CustomStyled'
 
 import Icon, {
-  ProjectOutlined,
   BulbOutlined,
+  EnvironmentOutlined,
   SwitcherOutlined,
-  ExperimentOutlined,
 } from '@ant-design/icons'
 
-const { Panel } = Collapse
+// const { Panel } = Collapse
 
 const ToolbarTop = props => {
-  const { currentPage, history, commonStore, demoStore } = props
+  const { currentPage, commonStore, demoStore } = props
 
+  const locationView = () => {
+    var camData = {
+      duration: 1,
+      position: {
+        x: -1619694.0038207266,
+        y: 5731515.516635127,
+        z: 2274488.5607231595,
+      },
+      direction: {
+        x: -0.8706899180487627,
+        y: -0.47299585100996294,
+        z: -0.13481094738781416,
+      },
+      up: {
+        x: -0.48937167137838883,
+        y: 0.8057702664166693,
+        z: 0.3335410694519222,
+      },
+    }
+    demoStore.setCameraData(camData)
+  }
+
+  const viewSwitch = () => {
+    if (demoStore.cameraViewType === '3D') {
+      demoStore.cameraViewType = '2D'
+    } else if (demoStore.cameraViewType === '2D') {
+      demoStore.cameraViewType = '2.5D'
+    } else if (demoStore.cameraViewType === '2.5D') {
+      demoStore.cameraViewType = '3D'
+    }
+  }
   const clickShowMainDrawer = () => {
     commonStore.setShowMainDrawer(true)
   }
@@ -46,7 +76,29 @@ const ToolbarTop = props => {
       case 'home':
         return <>{defaultButton}</>
       case 'demo':
-        return <Fragment>{defaultButton}</Fragment>
+        return (
+          <Fragment>
+            {defaultButton}
+            <ToolbarTopItem>
+              <Tooltip title={'Test Move Camera'}>
+                <Button
+                  onClick={locationView}
+                  icon={<EnvironmentOutlined />}
+                  size={commonStore.buttonSize}
+                />
+              </Tooltip>
+            </ToolbarTopItem>
+            <ToolbarTopItem>
+              <Tooltip title={'2D/3D Switch'}>
+                <Button
+                  onClick={viewSwitch}
+                  icon={<SwitcherOutlined />}
+                  size={commonStore.buttonSize}
+                />
+              </Tooltip>
+            </ToolbarTopItem>
+          </Fragment>
+        )
       default:
         break
     }

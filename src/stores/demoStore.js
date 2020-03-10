@@ -1,7 +1,10 @@
-import { observable, action, decorate, toJS } from 'mobx'
+import { observable, action, decorate } from 'mobx'
 
 class DemoStore {
   isLoading = false
+  cameraData = false
+  cameraViewType = '3D'
+
   setLoadingProgress = state => {
     this.isLoading = state
   }
@@ -18,6 +21,12 @@ class DemoStore {
 decorate(DemoStore, {
   isLoading: observable,
   setLoadingProgress: action,
+
+  cameraData: observable,
+  setCameraData: action,
+
+  cameraViewType: observable,
+  // setViewType: action,
 })
 
 export default new DemoStore()
