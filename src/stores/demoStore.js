@@ -1,10 +1,10 @@
-import { observable, action, decorate } from 'mobx'
+import { observable, action, decorate, toJS } from 'mobx'
 
 class DemoStore {
   isLoading = false
   cameraData = false
   cameraViewType = '3D'
-
+  orthographic = false
   setLoadingProgress = state => {
     this.isLoading = state
   }
@@ -16,6 +16,10 @@ class DemoStore {
   // setViewType = viewSwitch => {
   //   this.cameraViewType = viewSwitch
   // }
+
+  setOrthographic = viewOrthographic => {
+    this.orthographic = viewOrthographic
+  }
 }
 
 decorate(DemoStore, {
@@ -27,6 +31,9 @@ decorate(DemoStore, {
 
   cameraViewType: observable,
   // setViewType: action,
+
+  orthographic: observable,
+  setOrthographic: action,
 })
 
 export default new DemoStore()

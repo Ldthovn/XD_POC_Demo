@@ -1,22 +1,25 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Tooltip, Button } from 'antd'
+import { Tooltip, Button, Collapse } from 'antd'
 import { withRouter } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { ToolbarTopContainer, ToolbarTopItem } from './CustomStyled'
 
 import Icon, {
+  ProjectOutlined,
   BulbOutlined,
-  EnvironmentOutlined,
   SwitcherOutlined,
+  ExperimentOutlined,
+  CheckOutlined,
+  EnvironmentOutlined,
 } from '@ant-design/icons'
 
-// const { Panel } = Collapse
+const { Panel } = Collapse
 
 const ToolbarTop = props => {
-  const { currentPage, commonStore, demoStore } = props
+  const { currentPage, history, commonStore, demoStore } = props
 
-  const locationView = () => {
+  const test = () => {
     var camData = {
       duration: 1,
       position: {
@@ -47,6 +50,11 @@ const ToolbarTop = props => {
       demoStore.cameraViewType = '3D'
     }
   }
+
+  const viewOrthographic = () => {
+    demoStore.setOrthographic(true)
+  }
+
   const clickShowMainDrawer = () => {
     commonStore.setShowMainDrawer(true)
   }
@@ -82,17 +90,26 @@ const ToolbarTop = props => {
             <ToolbarTopItem>
               <Tooltip title={'Test Move Camera'}>
                 <Button
-                  onClick={locationView}
+                  onClick={test}
                   icon={<EnvironmentOutlined />}
                   size={commonStore.buttonSize}
                 />
               </Tooltip>
             </ToolbarTopItem>
             <ToolbarTopItem>
-              <Tooltip title={'2D/3D Switch'}>
+              <Tooltip title={'2D/3D View Switch'}>
                 <Button
                   onClick={viewSwitch}
                   icon={<SwitcherOutlined />}
+                  size={commonStore.buttonSize}
+                />
+              </Tooltip>
+            </ToolbarTopItem>
+            <ToolbarTopItem>
+              <Tooltip title={'Orthographic'}>
+                <Button
+                  onClick={viewOrthographic}
+                  icon={<CheckOutlined />}
                   size={commonStore.buttonSize}
                 />
               </Tooltip>
