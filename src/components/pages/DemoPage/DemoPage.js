@@ -18,6 +18,9 @@ import {
   imageryProvider,
   createWorldImagery,
   IonWorldImageryStyle,
+  Cesium3DTileset,
+  IonResource,
+  HeadingPitchRange,
 } from 'cesium'
 
 const DemoPage = props => {
@@ -92,7 +95,13 @@ const DemoPage = props => {
       )
     }
     if (demoStore.cameraViewType === '2.5D') {
-      setViewSceneMode(SceneMode.COLUMBUS_VIEW)
+      setViewSceneMode(SceneMode.SCENE3D)
+      setRoad(
+        createWorldImagery({
+          style: IonWorldImageryStyle.AERIAL,
+        })
+      )
+      demoStore.setOrthographic(true)
     }
     if (demoStore.cameraViewType === '3D') {
       setViewSceneMode(SceneMode.SCENE3D)
@@ -103,6 +112,31 @@ const DemoPage = props => {
       )
     }
   }, [demoStore.cameraViewType])
+
+  useEffect(() => {
+    if (!demoStore.orthographic) return
+    viewerRef.current.cesiumElement.scene.camera.switchToOrthographicFrustum()
+    viewerRef.current.cesiumElement.scene.screenSpaceCameraController.enableTilt = false
+    var tileset = new Cesium3DTileset({
+      url: IonResource.fromAssetId(76840),
+    })
+
+    tileset.readyPromise
+      .then(function(tileset) {
+        viewerRef.current.cesiumElement.scene.primitives.add(tileset)
+        viewerRef.current.cesiumElement.zoomTo(
+          tileset,
+          new HeadingPitchRange(
+            0.5,
+            -Math.PI / 6,
+            tileset.boundingSphere.radius * 4.0
+          )
+        )
+      })
+      .otherwise(function(error) {
+        console.log(error)
+      })
+  }, [demoStore.orthographic])
 
   return (
     <DefaultTemplate>

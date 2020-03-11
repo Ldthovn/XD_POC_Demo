@@ -10,6 +10,8 @@ import Icon, {
   BulbOutlined,
   SwitcherOutlined,
   ExperimentOutlined,
+  CheckOutlined,
+  EnvironmentOutlined,
 } from '@ant-design/icons'
 
 const { Panel } = Collapse
@@ -49,6 +51,10 @@ const ToolbarTop = props => {
     }
   }
 
+  const viewOrthographic = () => {
+    demoStore.setOrthographic(true)
+  }
+
   const clickShowMainDrawer = () => {
     commonStore.setShowMainDrawer(true)
   }
@@ -85,7 +91,7 @@ const ToolbarTop = props => {
               <Tooltip title={'Test Move Camera'}>
                 <Button
                   onClick={test}
-                  icon={<ExperimentOutlined />}
+                  icon={<EnvironmentOutlined />}
                   size={commonStore.buttonSize}
                 />
               </Tooltip>
@@ -95,6 +101,15 @@ const ToolbarTop = props => {
                 <Button
                   onClick={viewSwitch}
                   icon={<SwitcherOutlined />}
+                  size={commonStore.buttonSize}
+                />
+              </Tooltip>
+            </ToolbarTopItem>
+            <ToolbarTopItem>
+              <Tooltip title={'Orthographic'}>
+                <Button
+                  onClick={viewOrthographic}
+                  icon={<CheckOutlined />}
                   size={commonStore.buttonSize}
                 />
               </Tooltip>
