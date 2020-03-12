@@ -10,7 +10,7 @@ import Icon, {
   BulbOutlined,
   SwitcherOutlined,
   ExperimentOutlined,
-  CheckOutlined,
+  // CheckOutlined,
   EnvironmentOutlined,
 } from '@ant-design/icons'
 
@@ -19,6 +19,12 @@ const { Panel } = Collapse
 const ToolbarTop = props => {
   const { currentPage, history, commonStore, demoStore } = props
 
+  // const switchModeIcons = {
+  //   none: { icon: 'compass', title: '3D' },
+  //   switch2D: { icon: 'environment', title: '2D' },
+  //   switch25D: { icon: 'shake', title: '2.5D' },
+  //   switch3D: { icon: 'compass', title: '3D' },
+  // }
   const test = () => {
     var camData = {
       duration: 1,
@@ -51,9 +57,9 @@ const ToolbarTop = props => {
     }
   }
 
-  const viewOrthographic = () => {
-    demoStore.setOrthographic(true)
-  }
+  // const viewOrthographic = () => {
+  //   demoStore.setOrthographic(true)
+  // }
 
   const clickShowMainDrawer = () => {
     commonStore.setShowMainDrawer(true)
@@ -105,7 +111,7 @@ const ToolbarTop = props => {
                 />
               </Tooltip>
             </ToolbarTopItem>
-            <ToolbarTopItem>
+            {/* <ToolbarTopItem>
               <Tooltip title={'Orthographic'}>
                 <Button
                   onClick={viewOrthographic}
@@ -113,7 +119,33 @@ const ToolbarTop = props => {
                   size={commonStore.buttonSize}
                 />
               </Tooltip>
-            </ToolbarTopItem>
+            </ToolbarTopItem> */}
+            {/* <ToolbarTopItem
+              activated={
+                demoStore.cameraViewType !== 'none' &&
+                demoStore.cameraViewType !== 'switch3D'
+              }>
+              <Tooltip
+                // placement={'bottom'}
+                title={switchModeIcons[demoStore.cameraViewType].title}>
+                <Button
+                  icon={switchModeIcons[demoStore.cameraViewType].icon}
+                  size={commonStore.buttonSize}
+                  onClick={() => {
+                    if (
+                      demoStore.cameraViewType === 'none' ||
+                      demoStore.cameraViewType === 'switch3D'
+                    )
+                      demoStore.setViewType('switch2D')
+                    else if (demoStore.cameraViewType === 'switch2D') {
+                      demoStore.setGpsMode('switch25D')
+                    } else {
+                      demoStore.setGpsMode('none')
+                    }
+                  }}
+                />
+              </Tooltip>
+            </ToolbarTopItem> */}
           </Fragment>
         )
       default:

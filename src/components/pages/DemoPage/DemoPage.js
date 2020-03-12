@@ -33,7 +33,7 @@ const DemoPage = props => {
 
   const [road, setRoad] = useState([])
 
-  const [orthographic, setOrthographic] = useState([])
+  // const [orthographic, setOrthographic] = useState([])
 
   const onTileLoad = tile => {}
 
@@ -95,12 +95,15 @@ const DemoPage = props => {
       )
     }
     if (demoStore.cameraViewType === '2.5D') {
-      setViewSceneMode(SceneMode.SCENE3D)
+      setViewSceneMode(SceneMode.COLUMBUS_VIEW)
       setRoad(
         createWorldImagery({
           style: IonWorldImageryStyle.AERIAL,
         })
       )
+      if (!demoStore.orthographic) return
+      viewerRef.current.cesiumElement.scene.camera.switchToOrthographicFrustum()
+      viewerRef.current.cesiumElement.scene.screenSpaceCameraController.enableTilt = false
       demoStore.setOrthographic(true)
     }
     if (demoStore.cameraViewType === '3D') {
@@ -113,30 +116,30 @@ const DemoPage = props => {
     }
   }, [demoStore.cameraViewType])
 
-  useEffect(() => {
-    if (!demoStore.orthographic) return
-    viewerRef.current.cesiumElement.scene.camera.switchToOrthographicFrustum()
-    viewerRef.current.cesiumElement.scene.screenSpaceCameraController.enableTilt = false
-    var tileset = new Cesium3DTileset({
-      url: IonResource.fromAssetId(76840),
-    })
+  // useEffect(() => {
+  //   if (!demoStore.orthographic) return
+  //   viewerRef.current.cesiumElement.scene.camera.switchToOrthographicFrustum()
+  //   viewerRef.current.cesiumElement.scene.screenSpaceCameraController.enableTilt = false
+  //   var tileset = new Cesium3DTileset({
+  //     url: IonResource.fromAssetId(76840),
+  //   })
 
-    tileset.readyPromise
-      .then(function(tileset) {
-        viewerRef.current.cesiumElement.scene.primitives.add(tileset)
-        viewerRef.current.cesiumElement.zoomTo(
-          tileset,
-          new HeadingPitchRange(
-            0.5,
-            -Math.PI / 6,
-            tileset.boundingSphere.radius * 4.0
-          )
-        )
-      })
-      .otherwise(function(error) {
-        console.log(error)
-      })
-  }, [demoStore.orthographic])
+  //   tileset.readyPromise
+  //     .then(function(tileset) {
+  //       viewerRef.current.cesiumElement.scene.primitives.add(tileset)
+  //       viewerRef.current.cesiumElement.zoomTo(
+  //         tileset,
+  //         new HeadingPitchRange(
+  //           0.5,
+  //           -Math.PI / 6,
+  //           tileset.boundingSphere.radius * 4.0
+  //         )
+  //       )
+  //     })
+  //     .otherwise(function(error) {
+  //       console.log(error)
+  //     })
+  // }, [demoStore.orthographic])
 
   return (
     <DefaultTemplate>

@@ -5,6 +5,8 @@ class DemoStore {
   cameraData = false
   cameraViewType = '3D'
   orthographic = false
+  gpsMode = 'none' // gps mode : none, fix, free
+
   setLoadingProgress = state => {
     this.isLoading = state
   }
@@ -13,12 +15,16 @@ class DemoStore {
     this.cameraData = camData
   }
 
-  // setViewType = viewSwitch => {
-  //   this.cameraViewType = viewSwitch
-  // }
+  setViewType = viewSwitch => {
+    this.cameraViewType = viewSwitch
+  }
 
   setOrthographic = viewOrthographic => {
     this.orthographic = viewOrthographic
+  }
+
+  setGpsMode = mode => {
+    this.gpsMode = mode
   }
 }
 
@@ -30,10 +36,13 @@ decorate(DemoStore, {
   setCameraData: action,
 
   cameraViewType: observable,
-  // setViewType: action,
+  setViewType: action,
 
   orthographic: observable,
   setOrthographic: action,
+
+  gpsMode: observable,
+  setGpsMode: action,
 })
 
 export default new DemoStore()

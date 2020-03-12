@@ -43,6 +43,32 @@ const ToolbarLeft = props => {
                 />
               </Tooltip>
             </ToolbarLeftItem>
+            <ToolbarLeftItem
+              activated={
+                demoStore.gpsMode !== 'none' &&
+                demoStore.gpsMode !== 'first_person'
+              }>
+              <Tooltip
+                placement={'right'}
+                title={gpsModeIcons[demoStore.gpsMode].title}>
+                <Button
+                  icon={gpsModeIcons[demoStore.gpsMode].icon}
+                  size={commonStore.buttonSize}
+                  onClick={() => {
+                    if (
+                      demoStore.gpsMode === 'none' ||
+                      demoStore.gpsMode === 'first_person'
+                    )
+                      demoStore.setGpsMode('free')
+                    else if (demoStore.gpsMode === 'free') {
+                      demoStore.setGpsMode('fix')
+                    } else {
+                      demoStore.setGpsMode('none')
+                    }
+                  }}
+                />
+              </Tooltip>
+            </ToolbarLeftItem>
           </Fragment>
         )
       default:
